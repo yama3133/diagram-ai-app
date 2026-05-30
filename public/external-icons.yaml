@@ -1,0 +1,80 @@
+# diagram-as-code definition file for non-AWS / external services.
+# Served from https://diagram-ai-app.vercel.app/external-icons.yaml
+# Use alongside the AWS definition file from awslabs/diagram-as-code.
+
+Definitions:
+  ExternalIconsZip:
+    Type: Zip
+    ZipFile:
+      SourceType: url
+      Url: "https://diagram-ai-app.vercel.app/icons.zip"
+
+  ExternalIconsDir:
+    Type: Directory
+    Directory:
+      Source: ExternalIconsZip
+      Path: "icons/"
+
+  # ---- Hosting / dev infra ----
+  External::Vercel:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Vercel.png"     }, Label: { Title: "Vercel",     Color: "rgba(0,0,0,255)" } }
+  External::Netlify:    { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Netlify.png"    }, Label: { Title: "Netlify",    Color: "rgba(0,0,0,255)" } }
+  External::Cloudflare: { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Cloudflare.png" }, Label: { Title: "Cloudflare", Color: "rgba(0,0,0,255)" } }
+  External::GitHub:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "GitHub.png"     }, Label: { Title: "GitHub",     Color: "rgba(0,0,0,255)" } }
+  External::GitLab:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "GitLab.png"     }, Label: { Title: "GitLab",     Color: "rgba(0,0,0,255)" } }
+  External::FlyIo:      { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "FlyIo.png"      }, Label: { Title: "Fly.io",     Color: "rgba(0,0,0,255)" } }
+  External::Render:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Render.png"     }, Label: { Title: "Render",     Color: "rgba(0,0,0,255)" } }
+
+  # ---- Databases / backends ----
+  External::Supabase:   { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Supabase.png"   }, Label: { Title: "Supabase",   Color: "rgba(0,0,0,255)" } }
+  External::Firebase:   { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Firebase.png"   }, Label: { Title: "Firebase",   Color: "rgba(0,0,0,255)" } }
+  External::MongoDB:    { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "MongoDB.png"    }, Label: { Title: "MongoDB",    Color: "rgba(0,0,0,255)" } }
+  External::PostgreSQL: { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "PostgreSQL.png" }, Label: { Title: "PostgreSQL", Color: "rgba(0,0,0,255)" } }
+  External::Redis:      { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Redis.png"      }, Label: { Title: "Redis",      Color: "rgba(0,0,0,255)" } }
+
+  # ---- Auth ----
+  External::Auth0:      { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Auth0.png"      }, Label: { Title: "Auth0",      Color: "rgba(0,0,0,255)" } }
+  External::Clerk:      { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Clerk.png"      }, Label: { Title: "Clerk",      Color: "rgba(0,0,0,255)" } }
+
+  # ---- AI providers ----
+  External::OpenAI:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "OpenAI.png"     }, Label: { Title: "OpenAI",     Color: "rgba(0,0,0,255)" } }
+  External::Anthropic:  { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Anthropic.png"  }, Label: { Title: "Anthropic",  Color: "rgba(0,0,0,255)" } }
+
+  # ---- Comms / payments ----
+  External::Slack:      { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Slack.png"      }, Label: { Title: "Slack",      Color: "rgba(0,0,0,255)" } }
+  External::Discord:    { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Discord.png"    }, Label: { Title: "Discord",    Color: "rgba(0,0,0,255)" } }
+  External::Stripe:     { Type: Resource, Icon: { Source: ExternalIconsDir, Path: "Stripe.png"     }, Label: { Title: "Stripe",     Color: "rgba(0,0,0,255)" } }
+
+  # ---- Group (container) types — use as parents that hold Children ----
+  External::VercelPlatform:
+    Type: Group
+    Icon:   { Source: ExternalIconsDir, Path: "Vercel.png" }
+    Label:  { Title: "Vercel Platform", Color: "rgba(0,0,0,255)" }
+    Fill:   { Color: "rgba(0,0,0,0)" }
+    Border: { Color: "rgba(0,0,0,255)" }
+
+  External::NetlifyPlatform:
+    Type: Group
+    Icon:   { Source: ExternalIconsDir, Path: "Netlify.png" }
+    Label:  { Title: "Netlify", Color: "rgba(0,0,0,255)" }
+    Fill:   { Color: "rgba(0,0,0,0)" }
+    Border: { Color: "rgba(0,199,183,255)" }
+
+  External::CloudflareEdge:
+    Type: Group
+    Icon:   { Source: ExternalIconsDir, Path: "Cloudflare.png" }
+    Label:  { Title: "Cloudflare", Color: "rgba(0,0,0,255)" }
+    Fill:   { Color: "rgba(0,0,0,0)" }
+    Border: { Color: "rgba(243,128,32,255)" }
+
+  External::GitHubOrg:
+    Type: Group
+    Icon:   { Source: ExternalIconsDir, Path: "GitHub.png" }
+    Label:  { Title: "GitHub", Color: "rgba(0,0,0,255)" }
+    Fill:   { Color: "rgba(0,0,0,0)" }
+    Border: { Color: "rgba(24,23,23,255)" }
+
+  External::Box:
+    Type: Group
+    Label:  { Title: "", Color: "rgba(0,0,0,255)" }
+    Fill:   { Color: "rgba(0,0,0,0)" }
+    Border: { Color: "rgba(120,120,120,255)" }

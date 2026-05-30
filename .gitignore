@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Lambda build artifacts (regenerate via DEPLOY.md)
+/lambda/awsdac
+/lambda/function.zip
