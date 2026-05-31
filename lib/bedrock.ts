@@ -11,9 +11,18 @@ export const MODEL_ID =
   process.env.BEDROCK_MODEL_ID ??
   "us.anthropic.claude-haiku-4-5-20251001-v1:0";
 
-export const bedrockClient = new BedrockRuntimeClient({
-  region: process.env.AWS_REGION ?? "us-east-1",
-});
+// Lazily create the client so that importing this module (e.g. during
+// `next build` page-data collection, where AWS env vars are absent) does not
+// throw "Region is missing". The client is only constructed at request time.
+let _client: BedrockRuntimeClient | null = null;
+function getBedrockClient(): BedrockRuntimeClient {
+  if (!_client) {
+    _client = new BedrockRuntimeClient({
+      region: process.env.AWS_REGION ?? "us-east-1",
+    });
+  }
+  return _client;
+}
 
 type BedrockTextBlock = { type: "text"; text: string };
 export type BedrockImageMediaType =
@@ -47,7 +56,7 @@ export async function invokeClaude(opts: {
     body: JSON.stringify(body),
   });
 
-  const res = await bedrockClient.send(command);
+  const res = await getBedrockClient().send(command);
   const decoded = JSON.parse(new TextDecoder().decode(res.body));
   const text = decoded?.content?.[0]?.text;
   if (typeof text !== "string") {
