@@ -1,35 +1,38 @@
-name: Deploy to Vercel (Production)
+name: Deploy to Vercel (production)
 
 on:
   push:
     branches: [main]
 
-# 同一ブランチの古い実行はキャンセルして最新だけ走らせる
-concurrency:
-  group: vercel-prod-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
 
-      - name: Pull Vercel project settings (production)
+      - name: Pull Vercel environment information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Build (production)
+      - name: Build project artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Deploy prebuilt to production
+      - name: Deploy to production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
